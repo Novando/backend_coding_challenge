@@ -10,7 +10,7 @@ const dbTz = process.env.DB_TZ || 'UTC'
 
 export const initDb = async () => {
   const db = new Sequelize(`postgres://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`, {
-    logging: true,
+    logging: false,
     timezone: dbTz,
   })
   try {

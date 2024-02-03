@@ -30,7 +30,7 @@ export class TransactionRepository {
             HAVING COUNT(user_id) > 1
         )
       `)
-      return [res, count[0]]
+      return [res, count[0].count]
     } catch (err) {
       throw [err.message, 400]
     }

@@ -14,4 +14,11 @@ export class AppService {
       throw err
     }
   }
+  findByNames = async (filter) => {
+    try {
+      return await this.repoA.findByNames(filter)
+    } catch (err) {
+      throw err
+    }
+  }
 }

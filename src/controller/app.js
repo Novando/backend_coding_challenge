@@ -21,4 +21,17 @@ export class AppController {
       return res.json({message: err[0] || err.message, data: null}).status(err[1] || 500)
     }
   }
+  findByNames = async (req, res) => {
+    try {
+      const filter = {
+        page: req.query.page || 1,
+        size: req.query.size || 10,
+        names: req.query.names.split(';;;;;')
+      }
+      const resData = await this.serv.findByNames(filter)
+      return res.json({message: "APP_FETCHED", data: resData[0], count: resData[1]})
+    } catch (err) {
+      return res.json({message: err[0] || err.message, data: null}).status(err[1] || 500)
+    }
+  }
 }

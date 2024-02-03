@@ -50,4 +50,28 @@ export class AppRepository {
       throw [err.message, 400]
     }
   }
+  findByNames = async (search) => {
+    try {
+      const offset = search.page && search.size ? (search.page - 1) * search.size : 0
+      const limit = search.size || 10
+      const res = await App(this.db).findAndCountAll({
+        where: {
+          name: { [Op.in]: search.names },
+        },
+        offset,
+        limit,
+      })
+      /* QUERY
+       * SELECT *
+       *   FROM apps
+       *   WHERE deleted_at IS NULL
+       *     AND name IN ${search.names}
+       *   LIMIT 10 OFFSET 0;
+       */
+
+      return [res.rows, res.count]
+    } catch (err) {
+      throw [err.message, 400]
+    }
+  }
 }
